@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app">
+            <div>{{message}}</div>
+            <div v-once> This will not change: {{message}}</div>
+            <button v-on:click="reverseMessage">Reverse Message</button>
+        </div>
+        
+        <div id="app-1"> 
+            <li v-for="item in listOfDevelopynEmployees">
+                {{item.employee}} 
+                <div v-if="item.employee === 'Ben'" style="color:red"> - hey that's me</div>
+                <div v-else> - that's not me</div>
+            </li>
+        </div>
+        
+        <div id="app-2">
+            <p>{{tempMessage}}</p>
+            <input v-model="tempMessage">
+            <br/><br/>
+            <demo></demo>
+            <br/><br/>
+        </div>
+
+        <div id="app-3">
+                <div>Days of the week, using props</div>
+                <br/>
+                  <daysoftheweek
+                    v-for="item in weekList"
+                    v-bind:date="item"
+                    v-bind:key="item.id">
+                  </daysoftheweek>
+                <br/>
+        </div>
+
+        <div id="app-4">
+            <button v-on:click="func" v-bind:disabled="isButtonDisabled">Click to Disable</button>
+            <button v-on:click="func" v-bind:disabled="!isButtonDisabled">Click to Disable</button>
+            <p v-html ="rawHTML"></p>
+        </div>
+
+    
+        <script src="/./Vue.js"></script>
+    </body>
+</html>
