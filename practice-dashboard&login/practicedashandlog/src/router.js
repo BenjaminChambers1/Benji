@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import LoginComponent from "./views/Login.vue"
+import SecurePage from "./views/Secure.vue"
+
+import Distributees from "./views/Distributees.vue"
 
 Vue.use(Router);
 
@@ -19,20 +22,33 @@ export default new Router({
             
         },
         {
-            path: "/secure",
-            name: "secure",
-            component: function () { 
-              return import('./views/Secure.vue');
-            }
+            path: "/secure", 
+            name: "secure", 
+            component: SecurePage, 
+                
+            children: [
+                {
+                    path: '/distributees',
+                    name: "distributees",
+                    component: Distributees,
+                    
+                    children: [{
+                        path: '/distributees/input',
+                        name: "distributees/input",
+                        component: function () { 
+                        return import('./views/subViews/DistributeesInput.vue');
+                    }}]
+                
+                },
+                
+                    {
+                    path: '/stock',
+                    name: "stock",
+                    component: function () { 
+                    return import('./views/Stock.vue');
+                    }
+                },
+            ]
         },
-        {
-          path: '/distributees',
-          redirect: {
-              name: "distributees",
-              component: function () { 
-                return import('./views/Distributees.vue');
-              }
-          }
-      },
     ]
 });

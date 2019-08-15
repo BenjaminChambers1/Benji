@@ -1,36 +1,14 @@
 <template>
 <div id="secure">
-    <h1>
-        Mattress Direct | Dashboard
-    </h1>
-    <router-link to="/distributees">Distributees</router-link>
-    <router-view/>
-    <table> 
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Contact</th>
-        </tr>
-      </thead>
-      
-      <tbody>
-        <tr v-for="(item, index) in this.$store.state.distributeesarray" :key="index">
-          <td>{{ item.name }}</td> 
-          <td>{{ item.email }}</td>
-          <td>{{ item.contact }}</td>
-        </tr>         
-       </tbody>
-    </table>
-
- <input class="input is-medium" v-validate="'required|decimal:0|min:4|max:4'"
-        name="car-year" type="number" placeholder="Year (numbers only 4 max)">
-         <span class="is-danger">{{ errors.first('car-year') }}</span>
-
-<input class="input is-medium" v-validate="'required|email'"
-        name="email" type="text" placeholder="email required">
-         <span class="is-danger">{{ errors.first('email') }}</span>
-
+  <h1>
+     Mattress Direct | Dashboard
+  </h1>
+  <div class="navigation">
+  <router-link class="main" to="/distributees">Distributees</router-link> 
+  <router-link class="main" to="/Stock">Stock</router-link>
+  </div>
+  <router-view/>
+  
 </div>
 </template>
 
@@ -55,7 +33,6 @@ table{
   border-collapse: collapse;
   border: 3px solid #44475C;
 }
-
 table th {
   text-transform: uppercase;
   text-align: left;
@@ -64,17 +41,31 @@ table th {
   padding: 8px;
   min-width: 30px;
 }
-
 table td {
     padding-top: 0.25em;
     padding-bottom: 0.25em;
 }
-
 table tbody tr:nth-child(2n) td {
   background: #D4D8F9;
   border-top: 2px solid  #44475C;
   border-bottom: 2px solid  #44475C;
 }  
-
+.navigation {
+  font-size: 2em;
+  width: 100%;
+  height: 2em;
+}
+.main {
+  width: 50%;
+  padding-right: 1em;
+  padding-left: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-decoration: none;
+  
+}
+.main:hover {
+  background-color: #CCCCCC;
+}
 </style>
 
