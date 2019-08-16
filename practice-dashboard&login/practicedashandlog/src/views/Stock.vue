@@ -1,12 +1,15 @@
 <template>
 <div>
+
+<router-link to="/stock/input" replace><button>Add New type of Stock</button></router-link>
+<router-link to="/stock" replace><button>Close</button></router-link>
+<router-view/>
+
     <table> 
     <thead>
       <tr>
         <th>Name</th>
         <th>In Stock</th>
-        <th>Next Delivery Date</th>
-        <th>Size of Delivery</th>
       </tr>
     </thead>
       
@@ -14,8 +17,6 @@
       <tr v-for="(item, index) in this.$store.state.Stockarray" :key="index">
         <td>{{ item.name }}</td> 
         <td>{{ item.Stock }}</td>
-        <td>{{ item.DeliveryDate }}</td>
-        <td>{{ item.DeliverySize }}</td>
       </tr>         
       </tbody>
   </table>

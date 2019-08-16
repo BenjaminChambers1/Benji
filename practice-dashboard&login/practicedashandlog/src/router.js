@@ -4,6 +4,8 @@ import LoginComponent from "./views/Login.vue"
 import SecurePage from "./views/Secure.vue"
 
 import Distributees from "./views/Distributees.vue"
+import Stock from "./views/Stock.vue"
+
 
 Vue.use(Router);
 
@@ -44,9 +46,14 @@ export default new Router({
                     {
                     path: '/stock',
                     name: "stock",
-                    component: function () { 
-                    return import('./views/Stock.vue');
-                    }
+                    component: Stock,
+
+                    children: [{
+                        path: '/stock/input',
+                        name: "stock/input",
+                        component: function () { 
+                        return import('./views/subViews/StockInput.vue');
+                    }}]
                 },
             ]
         },
