@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+var Chart = require('chart.js');
 Vue.use(Vuex)
 const axios = require('axios');
 export default new Vuex.Store({
   state: {
     searchedcities: [],
-    citiesin2: 'Algeria',
+    citiesin2: 'Australia',
     secondlistofcountry: [],
     secondloadingcountry: false,
     
@@ -14,14 +14,17 @@ export default new Vuex.Store({
     pagecountry: 1,
     limitcity: 20,
     pagecity: 1,
-
-    countryname: 'Algeria',
-    countrycode: 'DZ',
+    pagedata: 1,
+    countryname: 'Australia',
+    countrycode: 'AU',
     passarray: [],
 
-    cityname: 'Algiers',
-    searcheddata: [],
-
+    cityname: 'South East Queensland',
+    searchdata: ['','','','','','','','','','','','','','','','','',''],
+    // individual data pieces
+    averagelat: null,
+    averagelong: null,
+    founditems: null,
   },
   mutations: {
     secondloadcountrytest(state) {
@@ -78,7 +81,7 @@ export default new Vuex.Store({
       .then(function (response) {
         //console.log(response)
         var arrayofeverything = response.data.results;
-        console.log(arrayofeverything);
+        //console.log(arrayofeverything);
         state.searchedcities = [];
         for (let count = 0; count < arrayofeverything.length; count++) { //in the list of cities
           if(state.passarray[0] === arrayofeverything[count].country) {
@@ -92,16 +95,37 @@ export default new Vuex.Store({
       });
     },
     measurements(state) {
-      axios.get('https://api.openaq.org/v1/measurements')
-      .then(function (response) {
-        console.log(response.data.results);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(function () {
-      });
+      var limit = 10000;
+        axios.get(`https://api.openaq.org/v1/measurements?limit=10000&page=${state.pagedata}&city=${state.cityname}&coordinates`)
+        .then(function (response) {
+          var totallat = null;
+          var totallong = null;
+          for (let index = 0; index < limit; index++) {
+            const item = response.data.results[index];
+            if(item && item.coordinates) {
+              if (item.coordinates.latitude) {totallat = totallat + response.data.results[index].coordinates.latitude;}
+              if (item.coordinates.longitude) {totallong = totallong + response.data.results[index].coordinates.longitude;}
+            }
+          }
+          state.averagelat = totallat / limit;
+          state.averagelong = totallong / limit;
+          if (state.averagelat === 0 ){
+            state.averagelat = 'Not Recorded';
+          } 
+          if (state.averagelong === 0 ){
+            state.averagelong = 'Not Recorded';
+          } 
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(function () {
+        });
+    },
+    changecity(state, city) {
+      state.cityname = city;
     }
+    
   },
   actions: {}
   });

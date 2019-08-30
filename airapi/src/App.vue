@@ -5,10 +5,26 @@
       <router-link to="/countriesv2">Countries</router-link> 
     </div>
     <router-view/>
+    
   </div>
 </template>
 
+
+<script >
+export default {
+  data() {
+    return {
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>
+
+
 <style lang="scss">
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
